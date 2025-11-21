@@ -1,33 +1,38 @@
-﻿using ShopList.Gui.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ShopList.Gui.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+//using System.ComponentModel;
+//using System.Linq;
+//using System.Net.Http.Headers;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Windows.Input;
 
 namespace ShopList.Gui.ViewModels
 {
-    public class ShopListViewModel : INotifyPropertyChanged
-    {
-        private string _nombreDelArtitulo = string.Empty;
+    public partial class ShopListViewModel : ObservableObject      
+        {
+
+        [ObservableProperty]
+        private string _nombreDelArticulo = string.Empty;
+        [ObservableProperty]
         private int _cantidadAComprar = 1;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+       // public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<Item>Items { get; }
 
-        public string NombreDelArticulo
+       /* public string NombreDelArticulo
         {
-            get => _nombreDelArtitulo;
+            get => _nombreDelArticulo;
             set
             {
-                if (value != _nombreDelArtitulo)
+                if (value != _nombreDelArticulo)
                 {
-                    _nombreDelArtitulo = value;
+                    _nombreDelArticulo = value;
                     OnPropertyChanged(nameof(NombreDelArticulo));
                 }
             }
@@ -46,14 +51,17 @@ namespace ShopList.Gui.ViewModels
             }
         }
 
-        public ICommand AgregarShopListItemCommand {  get; private set; }
+        public ICommand AgregarShopListItemCommand {  get; private set; }*/
 
         public ShopListViewModel()
         {
             Items = new ObservableCollection<Item>();
             CargarDatos();
-            AgregarShopListItemCommand = new Command(AgregarShopListItem);
+            //AgregarShopListItemCommand = new Command(AgregarShopListItem);
         }
+
+
+        [RelayCommand]
 
         public void AgregarShopListItem()
         {
@@ -74,6 +82,7 @@ namespace ShopList.Gui.ViewModels
             CantidadAComprar = 1;
         }
 
+        [RelayCommand]
         public void EliminarShopListItem()
         {
 
@@ -106,9 +115,9 @@ namespace ShopList.Gui.ViewModels
             });
         }
 
-        private void OnPropertyChanged(string propertyName)
+       /* private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }*/
     }
 }
